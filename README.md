@@ -1,2 +1,2 @@
 # DDPM
-Denoising-Diffusion-Probabilistic-Models pytorch
+Denoising-Diffusion-Probabilistic-Models
