@@ -12,8 +12,8 @@ data_path = "~/ダウンロード/CelebA/Img/img_align_celeba/"
 data_path = os.path.expanduser(data_path)
 img_files = os.listdir(data_path)
 
-epochs = 1
-batch_size = 64
+epochs = 50
+batch_size = 32
 noise_steps = 1000
 learning_rate = 1e-4
 
@@ -61,6 +61,7 @@ for epoch in range(epochs):
             train_losses.append(loss.detach().item())
     
     print("mean_train_loss:{}".format(sum(train_losses)/len(train_losses)))
-    unet.to("cpu")
-    torch.save(unet.module.state_dict(), "./checkpoint/DDPM_SimpleUnet.pth")
-    print("save model")
+    if (epoch+1)%10 == 0:
+        unet.to("cpu")
+        torch.save(unet.module.state_dict(), "./checkpoint/DDPM_SimpleUnet.pth")
+        print("save model")
