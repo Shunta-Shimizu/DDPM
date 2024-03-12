@@ -8,12 +8,12 @@ from unet import Simple_Unet
 from dataset import DDPM_Dataset
 from tqdm import tqdm
 
-data_path = "~/ダウンロード/CelebA/Img/img_align_celeba/"
+data_path = "~/CelebA/Img/img_align_celeba/"
 data_path = os.path.expanduser(data_path)
 img_files = os.listdir(data_path)
 
-epochs = 50
-batch_size = 32
+epochs = 200
+batch_size = 256
 noise_steps = 1000
 learning_rate = 1e-4
 
@@ -32,7 +32,7 @@ else:
 
 unet = Simple_Unet(in_channels=3, out_channels=3)
 if torch.cuda.device_count() > 1:
-    unet = nn.DataParallel(unet, device_ids=[0, 1])
+    unet = nn.DataParallel(unet)
     # model = nn.DataParallel(model)
 
 model = DDPM(denoise_network=unet, noise_steps=noise_steps, beta_start=0.0001, beta_end=0.02, device=device)
@@ -40,11 +40,12 @@ model.to(device)
 criterion = nn.MSELoss()
 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
+unet.to(device)
+model.train()
 train_losses = []
 for epoch in range(epochs):
     print("epoch {}:".format(str(epoch+1)))
-    unet.to(device)
-    model.train()
+
     with tqdm(train_dataloader, total=len(train_dataloader)) as pbar:
         for i, imgs in enumerate(pbar):
             imgs = imgs.to(device)
@@ -65,3 +66,4 @@ for epoch in range(epochs):
         unet.to("cpu")
         torch.save(unet.module.state_dict(), "./checkpoint/DDPM_SimpleUnet.pth")
         print("save model")
+        unet.to(device)

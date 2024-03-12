@@ -2,7 +2,6 @@ import os
 import torch
 import torch.nn as nn
 import torchvision
-import  matplotlib.pyplot as plt
 from tqdm import tqdm
 from unet import Simple_Unet
 
