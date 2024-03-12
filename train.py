@@ -49,7 +49,7 @@ for epoch in range(epochs):
     with tqdm(train_dataloader, total=len(train_dataloader)) as pbar:
         for i, imgs in enumerate(pbar):
             imgs = imgs.to(device)
-            time_steps = torch.randint(0, noise_steps, (batch_size,)).long().to(device)
+            time_steps = torch.randint(0, noise_steps, (imgs.shape[0],)).long().to(device)
             noisy_imgs, gt_noise = model.add_noise(imgs, time_steps)
 
             pred_noise = model.reverse_process(noisy_imgs, time_steps)

@@ -20,8 +20,8 @@ class DDPM(nn.Module):
         self.alpha_bar = torch.cumprod(self.alpha, dim=0)
     
     def add_noise(self, x, t): # x: image, t：noise_step
-        sqrt_alpha_bar = torch.sqrt(self.alpha_bar[t])          # batch_size
-        sqrt_one_minus_alpha_bar = torch.sqrt(1.0 - self.alpha_bar[t])      # batch_size
+        sqrt_alpha_bar = torch.sqrt(self.alpha_bar[t])
+        sqrt_one_minus_alpha_bar = torch.sqrt(1.0 - self.alpha_bar[t]) 
 
         # a = torch.tensor([1, 2, 6, 24, 288]) -> a.shape = torch.Size([5])
         # at = a.reshape(-1, 1, 1, 1) -> at.shape = torch.Size([5, 1, 1, 1])
