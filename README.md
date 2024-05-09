@@ -9,7 +9,7 @@ conda create -n ddpm python=3.9
 pip install requirements.txt
 ```
 
-### データセット
+### Dataset
 - CelebA
 - ImageNet
 - Places365 Standard
