@@ -25,5 +25,5 @@ python test.py --test_data_dir ./ --model_path ./ --save_result_dir ./
 
 ### Tasks
 - test.pyを書く
-- train.py test.pyをコマンドラインから引数を受け取れるようにする
+- train.py test.pyでコマンドライン引数を受け取れるようにする
 - Residual block, Attention Blockを導入したU-netの構築
