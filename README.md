@@ -1,9 +1,10 @@
 # DDPM
 ## Denoising-Diffusion-Probabilistic-Models
 
-### 環境構築
+### Installation
 ```
 git clone https://github.com/Shunta-Shimizu/DDPM.git
+cd DDPM
 conda create -n ddpm python=3.9
 pip install requirements.txt
 ```
